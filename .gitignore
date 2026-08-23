@@ -27,3 +27,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+# Large video files
+*.mp4
+assets/*.mp4
