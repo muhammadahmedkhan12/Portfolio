@@ -25,5 +25,11 @@ bin/
 ### VS Code ###
 .vscode/
 
+### Project specifics ###
+node_modules/
+.idea/
+linedin_Finaldraft/
+*.ico
+
 ### Mac OS ###
 .DS_Store
