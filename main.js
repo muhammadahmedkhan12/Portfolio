@@ -151,6 +151,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+
+    /* ---------- HamSayaa chat preview: play messages once when visible ---------- */
+    const chat = document.querySelector('.chat-mock');
+    if (chat && !reduceMotion) {
+        chat.classList.add('will-play');
+        const chatObserver = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting) {
+                chat.classList.add('is-playing');
+                chatObserver.disconnect();
+            }
+        }, { threshold: 0.4 });
+        chatObserver.observe(chat);
+    }
+
     /* ---------- Pause SVG pulse animations when motion is reduced ---------- */
     if (reduceMotion) {
         document.querySelectorAll('svg.fasal-diagram').forEach(svg => svg.pauseAnimations && svg.pauseAnimations());
