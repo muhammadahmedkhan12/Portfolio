@@ -15,6 +15,21 @@
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 
+    <!-- Link previews (LinkedIn, WhatsApp, X) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.ahmed-ai.dev/">
+    <meta property="og:title" content="Muhammad Ahmed Khan | AI Systems & Software Engineer">
+    <meta property="og:description" content="AI agents, RAG pipelines, voice AI and n8n automations — with live demos.">
+    <meta property="og:image" content="https://www.ahmed-ai.dev/assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Muhammad Ahmed Khan | AI Systems & Software Engineer">
+    <meta name="twitter:description" content="AI agents, RAG pipelines, voice AI and n8n automations — with live demos.">
+    <meta name="twitter:image" content="https://www.ahmed-ai.dev/assets/og-image.jpg">
+    <link rel="canonical" href="https://www.ahmed-ai.dev/">
+
+    <link rel="preload" as="image" href="assets/ahmed_portrait.webp" type="image/webp">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,6 +38,7 @@
 <body>
     <!-- Noise Overlay -->
     <div class="noise-overlay"></div>
+    <div class="scroll-progress" aria-hidden="true"></div>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
@@ -47,9 +63,9 @@
                         <span class="badge-text">AI Systems & Software Developer</span>
                     </div>
                     <h1 class="hero-title">
-                        <span class="title-line">Transforming Ideas</span>
-                        <span class="title-line">Into Intelligent Systems</span>
-                        <span class="title-line">That <span class="gradient-text">Drive Results</span></span>
+                        <span class="title-line"><span class="line-inner">Transforming Ideas</span></span>
+                        <span class="title-line"><span class="line-inner">Into Intelligent Systems</span></span>
+                        <span class="title-line"><span class="line-inner">That <span class="gradient-text">Drive Results</span></span></span>
                     </h1>
                     <p class="hero-subtitle">
                         Computer Science student at KSBL Karachi specializing in Multi-Agent AI, RAG pipelines, workflow automation, and scalable cloud database systems.
@@ -60,13 +76,35 @@
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                         </a>
                         <a href="#projects" class="btn-ghost">Explore Projects</a>
+                        <a href="ahmed_CV%28G%29.pdf" class="btn-link" download="Muhammad_Ahmed_Khan_CV.pdf">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+                            <span>Download CV</span>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Hero Portrait Ring: User's Photo (Cutout standing arms-folded angled right) -->
+                <!-- Hero Portrait: rises out of a glowing disc, with an orbit ring and floating tags -->
                 <div class="hero-visual">
-                    <div class="hero-portrait-ring">
-                        <img src="assets/ahmed_user_standing_cutout.png" alt="Muhammad Ahmed Khan Cutout" class="hero-portrait">
+                    <div class="portrait-stage">
+                        <div class="portrait-disc"></div>
+                        <svg class="portrait-orbit" viewBox="0 0 500 500" aria-hidden="true">
+                            <circle class="orbit-track" cx="250" cy="250" r="246"/>
+                            <g class="orbit-spin"><circle class="orbit-dot" cx="250" cy="4" r="4.5"/></g>
+                        </svg>
+                        <picture>
+                            <source srcset="assets/ahmed_portrait.webp" type="image/webp">
+                            <img src="assets/ahmed_portrait.png" alt="Muhammad Ahmed Khan" class="hero-portrait" width="489" height="622" fetchpriority="high">
+                        </picture>
+                        <span class="float-chip chip-a">CrewAI</span>
+                        <span class="float-chip chip-b">n8n</span>
+                        <span class="float-chip chip-c">RAG</span>
+                        <div class="status-card">
+                            <span class="status-dot"></span>
+                            <span>
+                                <span class="status-label">Open to freelance work</span>
+                                <span class="status-value">AI agents &amp; automation</span>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -102,11 +140,11 @@
                 </div>
                 <div class="hstat">
                     <span class="hstat-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
                     </span>
                     <span class="hstat-body">
-                        <span class="hstat-value">100%</span>
-                        <span class="hstat-label">Execution Focus</span>
+                        <span class="hstat-value">2</span>
+                        <span class="hstat-label">Live Product Demos</span>
                     </span>
                 </div>
             </div>
@@ -138,7 +176,7 @@
             <div class="bento-grid">
                 <div class="bento-card bento-intro">
                     <div class="bento-profile">
-                        <img src="assets/ahmed_user_standing_cutout.png" alt="Muhammad Ahmed Khan Profile">
+                        <img src="assets/ahmed_avatar_new.webp" alt="Muhammad Ahmed Khan" width="64" height="64" loading="lazy">
                         <div>
                             <h3>Muhammad Ahmed Khan</h3>
                             <p class="text-muted">CS Student (2024–2028) | AI & Software Developer</p>
@@ -272,14 +310,19 @@
                 <article class="project-card">
                     <div class="project-image-wrap">
                         <span class="project-featured-badge">National AI Hackathon</span>
-                        <svg viewBox="0 0 260 260" width="240" height="240">
-                            <circle cx="130" cy="130" r="85" stroke="rgba(77,189,192,0.15)" stroke-width="1" fill="none" stroke-dasharray="4 4"/>
+                        <svg class="fasal-diagram" viewBox="0 0 260 260" width="300" height="300" role="img" aria-label="FasalAI hub connected to five specialist agents">
+                            <circle class="fasal-ring" cx="130" cy="130" r="85" stroke="rgba(77,189,192,0.25)" stroke-width="1" fill="none" stroke-dasharray="4 4"/>
                             <circle cx="130" cy="130" r="50" stroke="rgba(77,189,192,0.1)" fill="none"/>
                             <line x1="130" y1="130" x2="130" y2="48" stroke="var(--accent)" stroke-width="1.2"/>
                             <line x1="130" y1="130" x2="211" y2="97" stroke="var(--accent)" stroke-width="1.2"/>
                             <line x1="130" y1="130" x2="183" y2="183" stroke="var(--accent)" stroke-width="1.2"/>
                             <line x1="130" y1="130" x2="77" y2="183" stroke="var(--accent)" stroke-width="1.2"/>
                             <line x1="130" y1="130" x2="49" y2="97" stroke="var(--accent)" stroke-width="1.2"/>
+                            <circle class="agent-pulse" r="2.6"><animateMotion dur="2.8s" begin="0.00s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear" path="M130 130 L130 48"/></circle>
+                            <circle class="agent-pulse" r="2.6"><animateMotion dur="2.8s" begin="0.55s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear" path="M130 130 L211 97"/></circle>
+                            <circle class="agent-pulse" r="2.6"><animateMotion dur="2.8s" begin="1.10s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear" path="M130 130 L183 183"/></circle>
+                            <circle class="agent-pulse" r="2.6"><animateMotion dur="2.8s" begin="1.65s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear" path="M130 130 L77 183"/></circle>
+                            <circle class="agent-pulse" r="2.6"><animateMotion dur="2.8s" begin="2.20s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear" path="M130 130 L49 97"/></circle>
                             <circle cx="130" cy="130" r="30" fill="rgba(77,189,192,0.15)" stroke="var(--accent)" stroke-width="2"/>
                             <text x="130" y="126" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="var(--accent)" font-weight="700">Fasal</text>
                             <text x="130" y="138" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="var(--accent)" font-weight="700">AI</text>
@@ -401,7 +444,7 @@
                 <!-- Video Card 1: AI Voice Receptionist + GoHighLevel -->
                 <div class="video-card">
                     <div class="video-container">
-                        <video controls poster="assets/voice_agent_thumbnail.jpg" preload="metadata" playsinline class="showcase-video">
+                        <video controls preload="none" poster="assets/voice_agent_thumbnail.jpg" playsinline class="showcase-video">
                             <source src="assets/voice_agent_demo.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -430,7 +473,7 @@
                 <!-- Video Card 2: Kinetic Gym Ecosystem & Pulse AI -->
                 <div class="video-card">
                     <div class="video-container">
-                        <video controls poster="assets/video_thumbnail.jpg" preload="metadata" playsinline class="showcase-video">
+                        <video controls preload="none" poster="assets/video_thumbnail.jpg" playsinline class="showcase-video">
                             <source src="assets/linkedin_finaldraft.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -752,8 +795,9 @@
     </footer>
 
     <!-- Floating Navigation Bar (Saad Saleem Style) -->
-    <nav class="floating-nav" id="navbar">
+    <nav class="floating-nav" id="navbar" aria-label="Sections">
         <ul>
+            <li class="nav-indicator" aria-hidden="true"></li>
             <li><a href="#home" class="nav-link active" aria-label="Home">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             </a></li>

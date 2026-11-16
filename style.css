@@ -293,60 +293,179 @@ img {
   flex-wrap: wrap;
 }
 
-/* Hero Visual: Transparent PNG Cutout (Angled Right, Standing Arms Folded) */
+/* Hero Visual: portrait that rises out of a glowing disc, with an orbit ring and floating tags */
 .hero-visual {
   position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  min-height: min(480px, 50vh);
+  min-height: min(520px, 56vh);
 }
 
-.hero-portrait-ring {
+.portrait-stage {
+  --stage: min(36vw, 470px);
   position: relative;
-  z-index: 2;
-  width: min(34vw, 440px);
-  height: min(34vw, 440px);
+  width: var(--stage);
+  height: calc(var(--stage) * 1.08);
   flex-shrink: 0;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 1px solid rgba(77, 189, 192, 0.45);
-  background: radial-gradient(circle closest-side, rgba(77, 189, 192, 0.12), rgba(77, 189, 192, 0.04) 60%, transparent 100%);
-  filter:
-    drop-shadow(0 0 14px rgba(77, 189, 192, 0.5))
-    drop-shadow(0 0 42px rgba(77, 189, 192, 0.38))
-    drop-shadow(0 0 90px rgba(26, 107, 138, 0.24));
-  transition: transform var(--transition-slow);
 }
 
-.hero-portrait-ring:hover {
-  transform: scale(1.02);
-}
-
-.hero-portrait {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center bottom;
-}
-
-/* Ambient Radial Halo Glow behind transparent PNG cutout */
-.hero-visual::before {
+/* Soft halo far behind everything */
+.portrait-stage::before {
   content: "";
   position: absolute;
-  z-index: 0;
-  top: 50%;
   left: 50%;
-  width: min(44vw, 540px);
-  height: min(44vw, 540px);
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle closest-side at 50% 50%,
-      rgba(77, 189, 192, 0.28) 0%,
-      rgba(26, 107, 138, 0.15) 50%,
+  bottom: 2%;
+  width: 118%;
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  background: radial-gradient(circle closest-side,
+      rgba(77, 189, 192, 0.30) 0%,
+      rgba(26, 107, 138, 0.16) 52%,
       transparent 100%);
-  filter: blur(30px);
+  filter: blur(28px);
   pointer-events: none;
+}
+
+/* The disc the portrait stands in */
+.portrait-disc {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 92%;
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(94, 212, 214, 0.22), transparent 62%),
+    linear-gradient(180deg, rgba(14, 40, 62, 0.95), rgba(6, 13, 27, 0.6));
+  border: 1px solid rgba(77, 189, 192, 0.42);
+  box-shadow:
+    0 0 0 10px rgba(77, 189, 192, 0.04),
+    0 0 60px rgba(77, 189, 192, 0.22),
+    inset 0 0 50px rgba(77, 189, 192, 0.10);
+}
+
+/* Orbit ring with a travelling light */
+.portrait-orbit {
+  position: absolute;
+  left: 50%;
+  bottom: -4%;
+  width: 100%;
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.orbit-track {
+  fill: none;
+  stroke: rgba(77, 189, 192, 0.18);
+  stroke-width: 1;
+  stroke-dasharray: 2 7;
+}
+
+.orbit-spin {
+  transform-origin: 250px 250px;
+  animation: orbitSpin 14s linear infinite;
+}
+
+.orbit-dot {
+  fill: #5ED4D6;
+  filter: drop-shadow(0 0 6px #5ED4D6) drop-shadow(0 0 14px rgba(94, 212, 214, 0.7));
+}
+
+/* The portrait itself: head breaks above the disc, body fades into the page */
+.hero-portrait {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 100%;
+  width: auto;
+  max-width: none;
+  transform: translateX(-50%);
+  -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 99%);
+  mask-image: linear-gradient(180deg, #000 70%, transparent 99%);
+  filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.45));
+  z-index: 2;
+}
+
+/* Floating skill tags */
+.float-chip {
+  position: absolute;
+  z-index: 3;
+  padding: 7px 14px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text);
+  background: rgba(10, 22, 40, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(77, 189, 192, 0.35);
+  border-radius: 100px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  white-space: nowrap;
+  animation: chipFloat 6s ease-in-out infinite;
+}
+
+.float-chip::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  vertical-align: middle;
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.chip-a { top: 16%; left: -4%; animation-delay: -1s; }
+.chip-b { top: 30%; right: -6%; animation-delay: -3s; }
+.chip-c { top: 55%; left: -10%; animation-delay: -4.5s; }
+
+/* Availability card */
+.status-card {
+  position: absolute;
+  z-index: 3;
+  right: -8%;
+  bottom: 12%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(10, 22, 40, 0.86);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(77, 189, 192, 0.35);
+  border-radius: 14px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), 0 0 24px rgba(77, 189, 192, 0.12);
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 10px #22c55e;
+  animation: pulseGreen 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.status-label {
+  display: block;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+.status-value {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
 }
 
 /* Hero Stats Bar */
@@ -1417,7 +1536,7 @@ img {
   .project-card { grid-template-columns: 1fr; }
   .contact-wrap { grid-template-columns: 1fr; gap: 40px; }
   .hero-visual { min-height: 360px; margin-top: 20px; }
-  .hero-portrait-ring { width: min(72vw, 340px); height: min(72vw, 340px); }
+  .portrait-stage { --stage: min(72vw, 380px); }
   .video-grid { grid-template-columns: 1fr; }
 }
 
@@ -1464,11 +1583,17 @@ img {
     padding: 14px 20px;
   }
 
-  .hero-portrait-ring {
-    width: min(75vw, 290px);
-    height: min(75vw, 290px);
-    margin: 20px auto 0;
+  .portrait-stage {
+    --stage: min(76vw, 330px);
+    margin: 28px auto 0;
   }
+
+  .float-chip { font-size: 11px; padding: 6px 11px; }
+  .chip-a { left: 0; }
+  .chip-b { right: -2%; }
+  .chip-c { left: -3%; }
+  .status-card { right: -2%; bottom: 6%; padding: 10px 12px; }
+  .status-value { font-size: 12.5px; }
 
   .hero-stats-bar {
     grid-template-columns: repeat(2, 1fr);
@@ -1627,9 +1752,8 @@ img {
     font-size: clamp(24px, 8vw, 34px);
   }
 
-  .hero-portrait-ring {
-    width: min(80vw, 260px);
-    height: min(80vw, 260px);
+  .portrait-stage {
+    --stage: min(80vw, 300px);
   }
 
   .hero-stats-bar {
@@ -1669,4 +1793,267 @@ img {
     width: 15px;
     height: 15px;
   }
+}
+/* ==========================================================================
+   2026 REFRESH — motion, polish and accessibility
+   (everything below layers on top of the original styles)
+   ========================================================================== */
+
+/* Scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 1001;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--scroll, 0));
+  background: linear-gradient(90deg, #1A6B8A, #4DBDC0, #5ED4D6);
+  box-shadow: 0 0 10px rgba(77, 189, 192, 0.6);
+  pointer-events: none;
+}
+
+/* Hero: fade the glow into the next section instead of a hard edge */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 180px;
+  background: linear-gradient(180deg, transparent, var(--bg));
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero .container { position: relative; z-index: 1; }
+
+/* Soft edges on the alternating section bands */
+.services,
+.video-showcase,
+.certifications,
+.contact {
+  background: linear-gradient(180deg,
+      var(--bg) 0,
+      var(--bg-elevated) 140px,
+      var(--bg-elevated) calc(100% - 140px),
+      var(--bg) 100%);
+}
+
+/* Hero intro sequence: plays once on page load */
+/* Lines are masked while they slide up, then unmasked so the text glow isn't cut off */
+.hero-title .title-line {
+  clip-path: inset(-1em -1em 0 -1em);
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+  animation: unclip 0s linear 1.4s forwards;
+}
+
+.hero-title .line-inner {
+  display: inline-block;
+  animation: lineUp 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.hero-title .title-line:nth-child(1) .line-inner { animation-delay: 0.15s; }
+.hero-title .title-line:nth-child(2) .line-inner { animation-delay: 0.27s; }
+.hero-title .title-line:nth-child(3) .line-inner { animation-delay: 0.39s; }
+
+.hero-badge     { animation: fadeUp 0.7s ease both 0.05s; }
+.hero-subtitle  { animation: fadeUp 0.8s ease both 0.55s; }
+.hero-actions   { animation: fadeUp 0.8s ease both 0.65s; }
+.hero-stats-bar { animation: fadeUp 0.9s ease both 0.85s; }
+
+.portrait-disc     { animation: discIn 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both 0.2s; }
+.hero-portrait     { animation: portraitIn 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both 0.35s; }
+.portrait-orbit    { animation: fadeIn 1.2s ease both 0.6s; }
+.float-chip        { animation: chipIn 0.6s cubic-bezier(0.2, 0.8, 0.3, 1.3) both, chipFloat 6s ease-in-out infinite; }
+.chip-a            { animation-delay: 0.9s, -1s; }
+.chip-b            { animation-delay: 1.05s, -3s; }
+.chip-c            { animation-delay: 1.2s, -4.5s; }
+.status-card       { animation: chipIn 0.7s cubic-bezier(0.2, 0.8, 0.3, 1.2) both 1.35s; }
+
+/* Gentle parallax on the portrait (set by main.js) */
+.portrait-stage {
+  transform: translate3d(var(--px, 0), var(--py, 0), 0);
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* CV link next to the hero buttons */
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: color var(--transition);
+}
+
+.btn-link:hover { color: var(--accent); }
+.btn-link svg { transition: transform var(--transition); }
+.btn-link:hover svg { transform: translateY(2px); }
+
+/* Cursor spotlight on cards (position set by main.js) */
+.spotlight {
+  background-image: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(77, 189, 192, 0.10), transparent 45%);
+  background-repeat: no-repeat;
+}
+
+.spotlight:not(:hover) { background-image: none; }
+
+/* Odd project card at the end of the grid spans the full row */
+.projects-subgrid .subproject-card:last-child:nth-child(3n + 1) {
+  grid-column: 1 / -1;
+}
+
+.projects-subgrid .subproject-card:last-child:nth-child(3n + 1) p {
+  max-width: 72ch;
+}
+
+/* FasalAI diagram: data pulses between the hub and the agents */
+.agent-pulse { fill: #5ED4D6; filter: drop-shadow(0 0 4px #5ED4D6); }
+.fasal-ring { transform-origin: 130px 130px; animation: orbitSpin 40s linear infinite; }
+
+/* Timeline draws itself as you scroll */
+.timeline::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, #5ED4D6, #1A6B8A);
+  transform-origin: top;
+  transform: scaleY(var(--line, 0));
+  box-shadow: 0 0 10px rgba(77, 189, 192, 0.5);
+}
+
+.timeline-marker { transition: background 0.4s ease, box-shadow 0.4s ease; z-index: 1; }
+.timeline-item.is-lit .timeline-marker {
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(77, 189, 192, 0.15), 0 0 14px rgba(77, 189, 192, 0.6);
+}
+
+/* Floating nav: sliding highlight and labels on hover */
+.floating-nav ul { position: relative; }
+
+.nav-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent-glow);
+  box-shadow: inset 0 0 0 1px rgba(77, 189, 192, 0.35);
+  transform: translateX(var(--nx, 0));
+  transition: transform 0.45s cubic-bezier(0.3, 0.9, 0.3, 1.15), opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.floating-nav .nav-link { position: relative; z-index: 1; }
+.floating-nav.has-indicator .nav-link.active { background: transparent; }
+
+.floating-nav .nav-link::after {
+  content: attr(aria-label);
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translate(-50%, 4px);
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  background: rgba(10, 22, 40, 0.95);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.floating-nav .nav-link:hover::after,
+.floating-nav .nav-link:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* Visible keyboard focus everywhere */
+a:focus-visible,
+button:focus-visible,
+video:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .timeline::after { left: 5px; }
+  .nav-indicator { width: 36px; height: 36px; }
+  .floating-nav .nav-link::after { display: none; }
+  .hero-actions .btn-link { justify-content: center; padding: 6px; }
+}
+
+@media (max-width: 480px) {
+  .nav-indicator { width: 33px; height: 33px; }
+}
+
+@keyframes unclip {
+  to { clip-path: inset(-1em -1em -1em -1em); }
+}
+
+@keyframes lineUp {
+  from { transform: translateY(105%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes discIn {
+  from { opacity: 0; transform: translateX(-50%) scale(0.85); }
+  to   { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+@keyframes portraitIn {
+  from { opacity: 0; transform: translate(-50%, 40px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@keyframes chipIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.85); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes chipFloat {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -8px; }
+}
+
+@keyframes orbitSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Respect people who turn motion off */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .portrait-stage { transform: none; }
+  .timeline::after { transform: scaleY(1); }
 }
